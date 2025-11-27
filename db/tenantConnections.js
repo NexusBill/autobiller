@@ -11,7 +11,7 @@ async function getTenantDB(clientCode) {
 
   console.log(`🔌 Connecting to DB for client: ${clientCode}`);
 
-  const uri = `mongodb+srv://nexus_root:12345@cluster0.i1azw1p.mongodb.net/${clientCode}?retryWrites=true&w=majority&appName=Cluster0`;
+  const uri = `mongodb+srv://nexus_root:Nexus@1234@cluster0.i1azw1p.mongodb.net/${clientCode}?retryWrites=true&w=majority&appName=Cluster0`;
 
   const conn = mongoose.createConnection(uri);
 
