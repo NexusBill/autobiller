@@ -7,13 +7,13 @@ const rootConnector = require("../db/rootConnection");
 
 const loadUsers = async (req, res, next) => {
     try {
-        const clientCode = req.body.clientCode;
-        if (!clientCode) {
-            return res.status(400).json({ error: "Client code missing" });
-        }
+        // const clientCode = req.body.clientCode;
+        // if (!clientCode) {
+        //     return res.status(400).json({ error: "Client code missing" });
+        // }
 
         const tenantDB = await rootConnector();
-        req.clientCode = clientCode;
+        // req.clientCode = clientCode;
         req.usersCollection = tenantDB.collection("users");
 
         next();
@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
     { expiresIn: "1d" }
   );
 
-  res.json({ token });
+  res.json({ token:token , message: "Login successful" ,clientCode: user.clientCode , username: user.username });
 });
 
 module.exports = router;
