@@ -16,10 +16,7 @@ module.exports = async (req, res, next) => {
 
     const tenantDB = await getTenantDB(clientCode);
 
-    // Attach models
-    req.db = {
-      Product: productModel(tenantDB)
-    };
+  
 
     next();
   } catch (err) {

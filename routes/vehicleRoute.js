@@ -8,11 +8,11 @@ const loadUsers = async (req, res, next) => {
     if (!token) return res.status(401).json({ error: "Missing token" });
 
     token = token.replace("Bearer ", "");
-    const decoded = jwt.verify(token, "kavi@12345"); //
+    const decoded = jwt.verify(token, "kavi@12345"); 
 
     const clientCode = decoded.clientCode;
         const tenantDB = await getTenantDB(clientCode);
-        req.productCollection = tenantDB.collection("products");
+        req.vehiclesCollection = tenantDB.collection("vehicle");
         next();
     } catch (err) {
         console.error("Middleware error:", err);
@@ -23,8 +23,8 @@ const loadUsers = async (req, res, next) => {
 router.use(loadUsers);
 router.get("/", async (req, res) => {
   try {
-    const products = await req.productCollection.find({}).toArray();
-    res.json(products);
+    const vehicles = await req.vehiclesCollection.find({}).toArray();
+    res.json(vehicles);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const result = await req.productsCollection.insertOne(req.body);
+    const result = await req.vehiclesCollection.insertOne(req.body);
     res.json({ success: true, data: result });
   } catch (err) {
     res.status(500).json({ error: err.message });
